@@ -1,0 +1,38 @@
+﻿<Window x:Class="Recipes.RecipeSelectionForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:Recipes"
+        Title="Вибір рецептів" Height="491" Width="1113">
+    <Window.Resources>
+        <local:IngredientsToStringConverter x:Key="IngredientsConverter"/>
+    </Window.Resources>
+    <Grid Margin="0,0,10,-6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto" MinHeight="57.04"/>
+        </Grid.RowDefinitions>
+
+
+        <StackPanel Grid.Row="1" Margin="749,69,0,69" HorizontalAlignment="Left" Width="253">
+
+            <ComboBox x:Name="cmbOccasion" SelectedIndex="-1" 
+          ItemsSource="{Binding Occasions}" SelectedValue="{Binding SelectedOccasion}" SelectionChanged="cmbOccasion_SelectionChanged" Margin="0, 50, 0, 0"/>
+            <ComboBox x:Name="cmbDishType" SelectedIndex="-1" 
+          ItemsSource="{Binding DishTypes}" SelectedValue="{Binding SelectedDishType}" FontSize="11" SelectionChanged="cmbDishType_SelectionChanged_1" Margin="0, 50, 0, 0"/>
+            <ComboBox x:Name="cmbTables" Width="253" Height="29" Margin="0, 50, 0, 0"/>
+        </StackPanel>
+
+        <DataGrid x:Name="dgRecipes" Grid.Row="1" AutoGenerateColumns="False" SelectionMode="Single" Margin="92,20,474,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Назва" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Тип" Binding="{Binding Type}" />
+                <DataGridTextColumn Header="Свято" Binding="{Binding Occasions}" />
+                <DataGridTextColumn Header="Продукти" Binding="{Binding Ingredients, Converter={StaticResource IngredientsConverter}}" Visibility="Visible" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Content="Додати рецепт до столу" Grid.Row="2" FontSize="19" Click="AddToMenu_Click" 
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="749,1,0,0" Height="39" Width="253"/>
+
+    </Grid>
+</Window>
